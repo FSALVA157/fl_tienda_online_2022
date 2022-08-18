@@ -25,9 +25,7 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: const CupertinoSearchTextField(
-            itemColor: AppTheme.primary_color,
-          ),
+          title: _customSearchBox(),
           bottom: TabBar(
             isScrollable: true,
             indicatorColor: AppTheme.primary_color,
@@ -41,6 +39,27 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
+  Container _customSearchBox() => Container(
+    height: 35,
+    decoration: BoxDecoration(
+      border: Border.all(color: AppTheme.primary_color, width: 1.4),
+      borderRadius: BorderRadius.circular(25),      
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Icon(Icons.search_outlined, color: Colors.grey.shade700,),
+        Text('Que estas buscando?', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),),
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 7),
+        decoration: BoxDecoration(color:AppTheme.primary_color, borderRadius: BorderRadius.circular(25)),
+        height: 42,
+        child: Center(child: Text('Search', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),)),
+        )
+      ],
+    ),
+  );
 
   List<Widget> tabsBodies(List<String> titulos) {
     List<Widget> listado=[];
