@@ -1,4 +1,5 @@
 import 'package:fl_tienda_online/themes/app_theme.dart';
+import 'package:fl_tienda_online/widgets/search/product_search_delegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
-          title: _customSearchBox(),
+          title: _customSearchBox(context),
           bottom: TabBar(
             isScrollable: true,
             indicatorColor: AppTheme.primary_color,
@@ -40,7 +41,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  Container _customSearchBox() => Container(
+  Container _customSearchBox(BuildContext context) => Container(
     height: 35,
     decoration: BoxDecoration(
       border: Border.all(color: AppTheme.primary_color, width: 1.4),
@@ -51,12 +52,25 @@ class Home extends StatelessWidget {
       children: [
         Icon(Icons.search_outlined, color: Colors.grey.shade700,),
         Text('Que estas buscando?', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),),
-      Container(
-        padding: EdgeInsets.symmetric(horizontal: 7),
-        decoration: BoxDecoration(color:AppTheme.primary_color, borderRadius: BorderRadius.circular(25)),
-        height: 42,
-        child: Center(child: Text('Search', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),)),
-        )
+        MaterialButton(
+          onPressed: (() => showSearch(
+            context: context, 
+            delegate: ProductSearchDelegate()
+            )),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25)
+            ),
+            color: AppTheme.primary_color,
+            elevation: 0,
+            disabledColor: Colors.grey,
+            child: Text('Search!', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),      
+        ))
+      // Container(
+      //   padding: EdgeInsets.symmetric(horizontal: 7),
+      //   decoration: BoxDecoration(color:AppTheme.primary_color, borderRadius: BorderRadius.circular(25)),
+      //   height: 42,
+      //   child: Center(child: Text('Search', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),)),
+      //   )
       ],
     ),
   );
