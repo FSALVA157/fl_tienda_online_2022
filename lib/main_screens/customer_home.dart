@@ -1,3 +1,4 @@
+import 'package:fl_tienda_online/main_screens/category_screen.dart';
 import 'package:fl_tienda_online/main_screens/home.dart';
 import 'package:fl_tienda_online/provider/navigation_provider.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,7 @@ class _Pages extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: [
         Home(),
+        CategorySceen(),
         Container(
           width: double.infinity,
           height: double.infinity,
