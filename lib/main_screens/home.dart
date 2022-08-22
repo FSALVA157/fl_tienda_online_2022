@@ -1,7 +1,5 @@
 import 'package:fl_tienda_online/themes/app_theme.dart';
 import 'package:fl_tienda_online/widgets/fake_tab_search.dart';
-import 'package:fl_tienda_online/widgets/search/product_search_delegate.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {

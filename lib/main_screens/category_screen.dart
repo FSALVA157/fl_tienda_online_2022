@@ -1,5 +1,9 @@
+import 'package:fl_tienda_online/provider/navigation_provider.dart';
+import 'package:fl_tienda_online/themes/app_theme.dart';
+import 'package:fl_tienda_online/utilities/categ_list.dart';
 import 'package:fl_tienda_online/widgets/fake_tab_search.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CategorySceen extends StatelessWidget {
   const CategorySceen({super.key});
@@ -16,18 +20,96 @@ class CategorySceen extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            left: 0,
-            child: Container(color: Colors.red,height: height * 0.6,), width: width * 0.2),
-            Positioned(
-            bottom: 0,
-            right: 0,
-            child: Container(color: Colors.blue,height: height * 0.6,), width: width * 0.8),
+          _SideNavigator(height: height, width: width),
+          _CategoryView(height: height, width: width),
 
         ],
       )
       ,
     );
+  }
+}
+
+class _CategoryView extends StatelessWidget {
+  const _CategoryView({
+    Key? key,
+    required this.height,
+    required this.width,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    final navigationProvider = Provider.of<NavigationProvider>(context);
+
+    return Positioned(
+    bottom: 0,
+    right: 0,
+    child: SizedBox(
+      height: height * 0.8,
+      width: width * 0.8,
+      child: PageView.builder(
+        physics: BouncingScrollPhysics(),
+        controller: navigationProvider.pageCategory,
+        scrollDirection: Axis.vertical,
+        onPageChanged: (index) => navigationProvider.categorySelected = maincateg[index],
+        itemCount: maincateg.length,
+        itemBuilder: (context, index) {
+         return Container(
+            width: double.infinity,
+            height: double.infinity,
+            color: Colors.white, 
+            child: Center(
+              child: Text(maincateg[index]),
+            ),
+          );
+        }
+        ),
+      )
+    );
+  }
+}
+
+class _SideNavigator extends StatelessWidget {
+  const _SideNavigator({
+    Key? key,
+    required this.height,
+    required this.width,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    final navigationProvider = Provider.of<NavigationProvider>(context);
+
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      child: SizedBox(
+        height: height * 0.8,
+        width: width * 0.2,
+        child: ListView.builder(
+          itemCount: maincateg.length,
+          itemBuilder: ((context, index) {
+            return GestureDetector(
+              onTap:(){
+                navigationProvider.categorySelected = maincateg[index];
+              },
+              child: Container(
+                color: (maincateg[index] == navigationProvider.categorySelected)? Colors.yellowAccent : AppTheme.primary_color,
+                height: 100,
+                child: Center(
+                  child: Text(maincateg[index]),
+                ),
+              ),
+            );
+          })
+          ),
+          )
+        );
   }
 }

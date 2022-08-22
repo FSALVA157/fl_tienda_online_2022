@@ -29,7 +29,8 @@ class FakeTabSearch extends StatelessWidget {
             color: AppTheme.primary_color,
             elevation: 0,
             disabledColor: Colors.grey,
-            child: Text('Search!', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),      
+            child: Text('Search', style: TextStyle(color: Colors.white, fontSize: 16),      
+            //child: Text('Search', style: TextStyle(color: Colors.grey.shade600, fontSize: 16),      
         ))      
       ],
     ),
