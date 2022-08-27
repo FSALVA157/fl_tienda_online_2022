@@ -1,9 +1,21 @@
+import 'package:fl_tienda_online/models/category_model.dart';
 import 'package:fl_tienda_online/utilities/categ_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavigationProvider extends ChangeNotifier{
+  List<CategoryModel> categories = [];
   int _paginaActual = 0;
   String _categorySelected="men";
+
+  NavigationProvider(){
+    maincateg.forEach((cat) { 
+      categories.add(
+        CategoryModel(cat, FontAwesomeIcons.building)
+        );
+    });
+  }
 
   //maanejo de controlador de tabs en CustomeHome
   PageController _pageController = new PageController();
