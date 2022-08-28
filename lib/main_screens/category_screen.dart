@@ -1,7 +1,9 @@
+import 'package:fl_tienda_online/models/category_model.dart';
 import 'package:fl_tienda_online/provider/navigation_provider.dart';
 import 'package:fl_tienda_online/themes/app_theme.dart';
 import 'package:fl_tienda_online/utilities/categ_list.dart';
 import 'package:fl_tienda_online/widgets/fake_tab_search.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -55,7 +57,7 @@ class _CategoryView extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         controller: navigationProvider.pageCategory,
         scrollDirection: Axis.vertical,        
-        onPageChanged: (index) => navigationProvider.categorySelected = maincateg[index],
+        onPageChanged: (index) => navigationProvider.categorySelected = index,
         itemCount: maincateg.length,
         itemBuilder: (context, index) {
          return Container(
@@ -88,6 +90,7 @@ class _SideNavigator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navigationProvider = Provider.of<NavigationProvider>(context);
+    final categories_list = navigationProvider.categories;
 
     return Positioned(
       bottom: 0,
@@ -96,25 +99,50 @@ class _SideNavigator extends StatelessWidget {
         height: height * 0.8,
         width: width * 0.2,
         child: ListView.builder(
-          itemCount: maincateg.length,
+          itemCount: categories_list.length,
           itemBuilder: ((context, index) {
             return GestureDetector(
               onTap:(){
-                navigationProvider.categorySelected = maincateg[index];
+                navigationProvider.categorySelected = index;
               },
               child: Container(
-                color: (maincateg[index] == navigationProvider.categorySelected)? Colors.yellowAccent : AppTheme.primary_color,
-                height: 100,
-                child: Column(
-              children: [
-                  Icon(navigationProvider.categories[index].icon),
-                  Text(navigationProvider.categories[index].name, style: TextStyle(fontSize: 10),)
-              ],
-              ),)
+                color: Colors.white,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: Column(
+                           children: [
+                            _IconCategory(categoria: categories_list[index]),
+                            SizedBox(height: 10),
+                            Center(child: Text(categories_list[index].name, style: TextStyle(fontSize: 10, color: AppTheme.primary_color),))
+                        ],
+                        ),),
+              )
             );
           })
           ),
           )
         );
+  }
+}
+
+class _IconCategory extends StatelessWidget {
+  final CategoryModel categoria;
+
+  const _IconCategory({
+    Key? key,
+    required this.categoria,
+  }) : super(key: key);
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        color: AppTheme.primary_color,
+      ),
+      child: Icon(categoria.icon, color: Colors.white, size: 30,)
+      );
   }
 }

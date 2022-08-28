@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class AppTheme{
 //  static final Color primary_color = Colors.yellowAccent.shade700;
-  static final Color primary_color = Color(0xff65CAC5);
+ // static final Color primary_color = Color(0xff65CAC5);
 //static final Color primary_color = Color(0xffEE7A24);
-//static final Color primary_color = Color(0xff4369CE);
+static final Color primary_color = Color(0xff4369CE);
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: primary_color,
     appBarTheme: const AppBarTheme(

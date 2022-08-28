@@ -21,7 +21,8 @@ class NavigationProvider extends ChangeNotifier{
   //armado de lista categoria con icono
   List<CategoryModel> categories = [];
   int _paginaActual = 0;
-  String _categorySelected="men";
+  //String _categorySelected;
+  late int _categorySelected;
 
   NavigationProvider(){
     maincateg.forEach((cat) { 
@@ -29,7 +30,8 @@ class NavigationProvider extends ChangeNotifier{
         CategoryModel(cat, custom_icons[cat]!)
         );
     });
-  }
+    this._categorySelected = 0;
+      }
 
   //maanejo de controlador de tabs en CustomeHome
   PageController _pageController = new PageController();
@@ -47,11 +49,19 @@ class NavigationProvider extends ChangeNotifier{
 //manejo de category Selected en Category Screen
 PageController _pageCategory = new PageController();
 PageController get pageCategory => this._pageCategory;
-String get categorySelected => this._categorySelected;
-set categorySelected(String value){
+int get categorySelected => this._categorySelected;
+set categorySelected(int value){
   this._categorySelected = value;
-  var page = maincateg.indexOf(value);
-  _pageCategory.jumpToPage(page);
+
+  for (var i = 0; i < categories.length; i++) {
+    if(i != this._categorySelected){
+      categories[i].selected = false;
+    }else{
+      categories[i].selected = true;
+    }
+  }
+  //var page = maincateg.indexOf(value);
+  _pageCategory.jumpToPage(this._categorySelected);
   notifyListeners();
 }
 
