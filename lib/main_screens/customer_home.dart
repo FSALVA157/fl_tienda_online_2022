@@ -58,7 +58,7 @@ class _Pages extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       children: [
         Home(),
-        CategorySceen(),
+        CategoryScreen(),
         Container(
           width: double.infinity,
           height: double.infinity,

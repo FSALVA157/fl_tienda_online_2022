@@ -1,10 +1,24 @@
 import 'package:fl_tienda_online/models/category_model.dart';
 import 'package:fl_tienda_online/utilities/categ_list.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavigationProvider extends ChangeNotifier{
+
+  //este Map debe ingresar desde la bd
+  Map<String, IconData> custom_icons = {
+      "men": FontAwesomeIcons.person,
+      'women': FontAwesomeIcons.childDress,
+      'electronics': FontAwesomeIcons.mobile,
+      'accessories': FontAwesomeIcons.watchmanMonitoring,
+      'shoes': FontAwesomeIcons.shoePrints,
+      'home & garden': FontAwesomeIcons.tree,
+      'beauty': FontAwesomeIcons.eyeSlash,
+      'kids': FontAwesomeIcons.children,
+      'bags': FontAwesomeIcons.bagShopping
+  };
+  
+  //armado de lista categoria con icono
   List<CategoryModel> categories = [];
   int _paginaActual = 0;
   String _categorySelected="men";
@@ -12,7 +26,7 @@ class NavigationProvider extends ChangeNotifier{
   NavigationProvider(){
     maincateg.forEach((cat) { 
       categories.add(
-        CategoryModel(cat, FontAwesomeIcons.building)
+        CategoryModel(cat, custom_icons[cat]!)
         );
     });
   }

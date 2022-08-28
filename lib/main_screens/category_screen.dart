@@ -5,8 +5,9 @@ import 'package:fl_tienda_online/widgets/fake_tab_search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CategorySceen extends StatelessWidget {
-  const CategorySceen({super.key});
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen({super.key});
+  
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class _CategoryView extends StatelessWidget {
       child: PageView.builder(
         physics: BouncingScrollPhysics(),
         controller: navigationProvider.pageCategory,
-        scrollDirection: Axis.vertical,
+        scrollDirection: Axis.vertical,        
         onPageChanged: (index) => navigationProvider.categorySelected = maincateg[index],
         itemCount: maincateg.length,
         itemBuilder: (context, index) {
@@ -62,8 +63,10 @@ class _CategoryView extends StatelessWidget {
             height: double.infinity,
             color: Colors.white, 
             child: Center(
-              child: Text(maincateg[index]),
-            ),
+              child: Text(navigationProvider.categories[index].name),
+              
+            )
+            
           );
         }
         ),
@@ -102,10 +105,12 @@ class _SideNavigator extends StatelessWidget {
               child: Container(
                 color: (maincateg[index] == navigationProvider.categorySelected)? Colors.yellowAccent : AppTheme.primary_color,
                 height: 100,
-                child: Center(
-                  child: Text(maincateg[index]),
-                ),
-              ),
+                child: Column(
+              children: [
+                  Icon(navigationProvider.categories[index].icon),
+                  Text(navigationProvider.categories[index].name, style: TextStyle(fontSize: 10),)
+              ],
+              ),)
             );
           })
           ),
